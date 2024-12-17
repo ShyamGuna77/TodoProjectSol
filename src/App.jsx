@@ -11,7 +11,7 @@ function App() {
     selectedprojectId : undefined,
     projects: []
   })
-
+ //staring project
   function handleclickProject(){
     setSelectedProject(prevstate => {
       return{
@@ -20,9 +20,27 @@ function App() {
       }
     })
   }
+  //Adding Project
+
+  function handleAddProject (projectData){
+    setSelectedProject(prevState=> {
+      const newProject = {
+          ...projectData,
+          id:Math.random()
+      }
+      return {
+         ...prevState,
+         projects:[...prevState.projects,newProject]
+      }
+    })
+  }
+
+console.log(selectedproject)
+
+
   let content ;
   if(selectedproject.selectedprojectId === null){
-    content = <NewProject />
+    content = <NewProject  onAdd ={handleAddProject} />
   }else if(selectedproject.selectedprojectId === undefined){
     content = <DefaultProject onStartAddProject={handleclickProject} />;
   }
